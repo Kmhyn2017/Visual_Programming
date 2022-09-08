@@ -1,0 +1,29 @@
+대화상자에 버튼을 만들고 더블클릭해서 아래코드를 작성한다.
+
+PenDlg.cpp
+
+CPoint oPnt;
+COLORREF col;
+void CPenDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nFlags == MK_LBUTTON) {
+		CBrush pen = (PS_SOLID, n,RGB(0, 255, 0));
+		CClientDC dc(this);
+		dc.SelectObject(&pen);
+		dc.MoveTo(oPnt);
+		dc.LineTo(point);
+		CDialogEx::OnMouseMove(nFlags, point);
+
+	}
+	oPnt = point;
+}
+
+
+void CPenDlg::OnBnClickedButton2()
+{
+	CColorDialog dlg;
+	if (dlg.DoModal() == IDOK) {
+		col = dlg.GetColor();
+	}
+}
