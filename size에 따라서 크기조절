@@ -1,0 +1,8 @@
+size 버튼에 따라서 크기 조절하기
+PenDlg.cpp
+
+void CPenDlg::OnSize4()
+{
+	MessageBox(L"Andong Natoinal Univ.");
+}
+
