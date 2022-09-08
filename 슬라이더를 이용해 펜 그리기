@@ -1,0 +1,32 @@
+도구상자에 슬라이더를 배치하고 우클릭해 변수 추가합니다.(변수 m_Slider)
+우클릭해 이벤트 처리추가하여 클래스를 CAboutDlg로 변경
+대화상자클릭하고 우측 아래에 메세지를 눌러 MW_MOVE 선택, Customdraw선택해 아래 코드 작성
+슬라이더로 펜의 굴기를 조정해 펜을 그리기(펜 색은 파란색으로 한다.
+Pen.Dlg.cpp
+
+int n;
+void CPenDlg::OnNMCustomdrawSlider1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	*pResult = 0;
+	CString pos; //MFC 해당 타입
+	n = m_Slider.GetPos();
+	pos.Format(L"%d",n );
+	SetWindowText(pos);
+}
+
+
+void CPenDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nFlags == MK_LBUTTON) {
+		CBrush br = RGB(0, 0, 255);
+		CClientDC dc(this);
+		dc.SelectObject(&br);
+		CPoint p = point;
+		dc.Ellipse(p.x - n, p.y - n, p.x + n, p.y + n);
+		CDialogEx::OnMouseMove(nFlags, point);
+
+	}
+}
